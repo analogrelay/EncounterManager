@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ApplicationDataStore" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ApplicationDataStore">
+    <EntitySet Name="Creatures" EntityType="ApplicationDataStore.Creature" store:Type="Tables" Schema="dbo" Table="Creatures" />
+    <EntitySet Name="Powers" EntityType="ApplicationDataStore.Power" store:Type="Tables" Schema="dbo" Table="Powers" />
+    <EntitySet Name="Statuses" EntityType="ApplicationDataStore.Status" store:Type="Tables" Schema="dbo" Table="Statuses" />
+    <EntitySet Name="Encounters" EntityType="ApplicationDataStore.Encounter" store:Type="Tables" Schema="dbo" Table="Encounters" />
+    <AssociationSet Name="Power_Creature" Association="ApplicationDataStore.Power_Creature">
+      <End Role="Creature" EntitySet="Creatures" />
+      <End Role="Power" EntitySet="Powers" />
+    </AssociationSet>
+    <AssociationSet Name="Status_Creature" Association="ApplicationDataStore.Status_Creature">
+      <End Role="Creature" EntitySet="Creatures" />
+      <End Role="Status" EntitySet="Statuses" />
+    </AssociationSet>
+    <AssociationSet Name="Encounter_Creature" Association="ApplicationDataStore.Encounter_Creature">
+      <End Role="Encounter" EntitySet="Encounters" />
+      <End Role="Creature" EntitySet="Creatures" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Creature">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Initiative" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Index" Type="int" Nullable="false" />
+    <Property Name="CurrentHP" Type="int" Nullable="false" />
+    <Property Name="TempHP" Type="int" Nullable="false" />
+    <Property Name="MaxHP" Type="int" Nullable="false" />
+    <Property Name="XP" Type="int" />
+    <Property Name="ArmorClass" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Reflex" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Fortitude" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Will" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Speed" Type="int" Nullable="false" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="255" />
+    <Property Name="Encounter_Creature" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Power">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Kind" Type="int" Nullable="false" />
+    <Property Name="Recharge" Type="int" />
+    <Property Name="Exhausted" Type="bit" Nullable="false" />
+    <Property Name="Attack" Type="nvarchar" MaxLength="255" />
+    <Property Name="Hit" Type="nvarchar" MaxLength="255" />
+    <Property Name="Miss" Type="nvarchar" MaxLength="255" />
+    <Property Name="Effect" Type="nvarchar" MaxLength="255" />
+    <Property Name="Range" Type="nvarchar" MaxLength="255" />
+    <Property Name="Trigger" Type="nvarchar" MaxLength="255" />
+    <Property Name="Power_Creature" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Effect" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Status_Creature" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Encounter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <Association Name="Power_Creature">
+    <End Role="Creature" Type="ApplicationDataStore.Creature" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Power" Type="ApplicationDataStore.Power" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Creature">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Power">
+        <PropertyRef Name="Power_Creature" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Status_Creature">
+    <End Role="Creature" Type="ApplicationDataStore.Creature" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Status" Type="ApplicationDataStore.Status" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Creature">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Status">
+        <PropertyRef Name="Status_Creature" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Encounter_Creature">
+    <End Role="Encounter" Type="ApplicationDataStore.Encounter" Multiplicity="1" />
+    <End Role="Creature" Type="ApplicationDataStore.Creature" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Encounter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Creature">
+        <PropertyRef Name="Encounter_Creature" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

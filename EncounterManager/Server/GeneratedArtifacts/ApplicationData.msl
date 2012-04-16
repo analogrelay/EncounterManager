@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping CdmEntityContainer="ApplicationDataObjectContext" StorageEntityContainer="ApplicationDataStore">
+    <EntitySetMapping Name="Creatures">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.Creature)">
+        <MappingFragment StoreEntitySet="Creatures">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Initiative" ColumnName="Initiative" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="CurrentHP" ColumnName="CurrentHP" />
+          <ScalarProperty Name="TempHP" ColumnName="TempHP" />
+          <ScalarProperty Name="MaxHP" ColumnName="MaxHP" />
+          <ScalarProperty Name="Encounter_Creature" ColumnName="Encounter_Creature" />
+          <ScalarProperty Name="XP" ColumnName="XP" />
+          <ScalarProperty Name="ArmorClass" ColumnName="ArmorClass" />
+          <ScalarProperty Name="Reflex" ColumnName="Reflex" />
+          <ScalarProperty Name="Fortitude" ColumnName="Fortitude" />
+          <ScalarProperty Name="Will" ColumnName="Will" />
+          <ScalarProperty Name="Speed" ColumnName="Speed" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Powers">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.Power)">
+        <MappingFragment StoreEntitySet="Powers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Power_Creature" ColumnName="Power_Creature" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Kind" ColumnName="Kind" />
+          <ScalarProperty Name="Recharge" ColumnName="Recharge" />
+          <ScalarProperty Name="Exhausted" ColumnName="Exhausted" />
+          <ScalarProperty Name="Attack" ColumnName="Attack" />
+          <ScalarProperty Name="Hit" ColumnName="Hit" />
+          <ScalarProperty Name="Miss" ColumnName="Miss" />
+          <ScalarProperty Name="Effect" ColumnName="Effect" />
+          <ScalarProperty Name="Range" ColumnName="Range" />
+          <ScalarProperty Name="Trigger" ColumnName="Trigger" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Statuses">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.Status)">
+        <MappingFragment StoreEntitySet="Statuses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status_Creature" ColumnName="Status_Creature" />
+          <ScalarProperty Name="Effect" ColumnName="Effect" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Encounters">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.Encounter)">
+        <MappingFragment StoreEntitySet="Encounters">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

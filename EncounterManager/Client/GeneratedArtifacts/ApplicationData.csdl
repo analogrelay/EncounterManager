@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" Namespace="LightSwitchApplication" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <Association Name="Power_Creature">
+    <End Role="Creature" Type="LightSwitchApplication.Creature" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Power" Type="LightSwitchApplication.Power" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Creature">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Power">
+        <PropertyRef Name="Power_Creature" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Status_Creature">
+    <End Role="Creature" Type="LightSwitchApplication.Creature" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Status" Type="LightSwitchApplication.Status" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Creature">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Status">
+        <PropertyRef Name="Status_Creature" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Encounter_Creature">
+    <End Role="Encounter" Type="LightSwitchApplication.Encounter" Multiplicity="1" />
+    <End Role="Creature" Type="LightSwitchApplication.Creature" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Encounter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Creature">
+        <PropertyRef Name="Encounter_Creature" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Creature">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Initiative" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Index" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="CurrentHP" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="TempHP" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="MaxHP" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="XP" Type="Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ArmorClass" Type="String" Nullable="false" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Reflex" Type="String" Nullable="false" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Fortitude" Type="String" Nullable="false" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Will" Type="String" Nullable="false" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Speed" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Notes" Type="String" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Encounter_Creature" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Powers" Relationship="LightSwitchApplication.Power_Creature" ToRole="Power" FromRole="Creature" />
+    <NavigationProperty Name="Statuses" Relationship="LightSwitchApplication.Status_Creature" ToRole="Status" FromRole="Creature" />
+    <NavigationProperty Name="Encounter" Relationship="LightSwitchApplication.Encounter_Creature" ToRole="Encounter" FromRole="Creature" />
+  </EntityType>
+  <EntityType Name="Power">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Kind" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Recharge" Type="Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Exhausted" Type="Boolean" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Attack" Type="String" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Hit" Type="String" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Miss" Type="String" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Effect" Type="String" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Range" Type="String" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Trigger" Type="String" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Power_Creature" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Creature" Relationship="LightSwitchApplication.Power_Creature" ToRole="Creature" FromRole="Power" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Effect" Type="String" Nullable="false" MaxLength="255" ConcurrencyMode="Fixed" />
+    <Property Name="Status_Creature" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Creature" Relationship="LightSwitchApplication.Status_Creature" ToRole="Creature" FromRole="Status" />
+  </EntityType>
+  <EntityType Name="Encounter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Creatures" Relationship="LightSwitchApplication.Encounter_Creature" ToRole="Creature" FromRole="Encounter" />
+  </EntityType>
+  <EntityContainer Name="ApplicationDataObjectContext" m:IsDefaultEntityContainer="true">
+    <EntitySet Name="Creatures" EntityType="LightSwitchApplication.Creature" />
+    <EntitySet Name="Powers" EntityType="LightSwitchApplication.Power" />
+    <EntitySet Name="Statuses" EntityType="LightSwitchApplication.Status" />
+    <EntitySet Name="Encounters" EntityType="LightSwitchApplication.Encounter" />
+    <AssociationSet Name="Power_Creature" Association="LightSwitchApplication.Power_Creature">
+      <End Role="Creature" EntitySet="Creatures" />
+      <End Role="Power" EntitySet="Powers" />
+    </AssociationSet>
+    <AssociationSet Name="Status_Creature" Association="LightSwitchApplication.Status_Creature">
+      <End Role="Creature" EntitySet="Creatures" />
+      <End Role="Status" EntitySet="Statuses" />
+    </AssociationSet>
+    <AssociationSet Name="Encounter_Creature" Association="LightSwitchApplication.Encounter_Creature">
+      <End Role="Encounter" EntitySet="Encounters" />
+      <End Role="Creature" EntitySet="Creatures" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

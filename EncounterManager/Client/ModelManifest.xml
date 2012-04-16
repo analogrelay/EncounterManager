@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ModelDocumentManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Documents>
+    <Document FullPath="C:\Code\Git\EncounterManager\EncounterManager\Client\Properties\Client.lsml" Checksum="9B804921A9498CAFE490A3C1D4E4FC74FD8C1ABBD950EB449FC9B79A703EF6B8" />
+    <Document FullPath="C:\Code\Git\EncounterManager\EncounterManager\Common\Properties\Common.lsml" Checksum="31580CA652A9BC5E1E70B5B9AAE33D8C92800D4C6A11B9C34C9FB9270B577666" />
+  </Documents>
+</ModelDocumentManifest>
